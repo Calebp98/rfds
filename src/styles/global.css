@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Departure Mono';
+  src: url('/rfds/fonts/DepartureMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
@@ -36,11 +44,6 @@ html {
 
 body {
   min-height: 100vh;
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: -1px -1px;
 }
 
 a {
@@ -88,7 +91,7 @@ pre code {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Press Start 2P', 'IBM Plex Mono', monospace;
+  font-family: 'Departure Mono', 'IBM Plex Mono', monospace;
   font-weight: 400;
   line-height: 1.4;
   margin-top: 2rem;
@@ -97,9 +100,10 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.02em;
 }
 
-h1 { font-size: 1.5rem; }
-h2 { font-size: 1.1rem; }
-h3 { font-size: 0.95rem; }
+/* Departure Mono looks best at multiples of 11px */
+h1 { font-size: 22px; }
+h2 { font-size: 16.5px; }
+h3 { font-size: 14px; }
 
 p {
   margin-bottom: 1.25rem;
