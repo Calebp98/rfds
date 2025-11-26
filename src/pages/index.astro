@@ -16,7 +16,7 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
           <tr>
             <td class="col-num">{rfd.data.number}</td>
             <td class="col-title">
-              <a href={`${import.meta.env.BASE_URL}rfd/${rfd.data.number}`}>{rfd.data.title}</a>
+              <a href={`${import.meta.env.BASE_URL}rfd/${rfd.data.number}/`}>{rfd.data.title}</a>
             </td>
             <td class="col-state">
               <span class={`state state-${rfd.data.state}`}>{rfd.data.state}</span>
