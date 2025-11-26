@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://aisecurityforum.github.io',
+  site: 'https://Calebp98.github.io',
   base: '/rfds',
   integrations: [mdx()],
   markdown: {
