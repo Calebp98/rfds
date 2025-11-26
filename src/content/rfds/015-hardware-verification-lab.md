@@ -3,7 +3,7 @@ title: "Hardware Verification Lab"
 number: "015"
 author: "James Petrie"
 state: "idea"
-tags: ["verification", "infrastructure", "institution"]
+tags: ["verification", "infrastructure"]
 created: "2024-11-26"
 ---
 
