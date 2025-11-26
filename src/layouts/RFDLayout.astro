@@ -1,0 +1,165 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    number: string;
+    author: string;
+    state: string;
+    tags: string[];
+    created: string;
+    updated?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const stateClass = `state state-${frontmatter.state}`;
+---
+
+<BaseLayout title={`RFD ${frontmatter.number}: ${frontmatter.title}`}>
+  <article class="rfd">
+    <a href="/" class="back-link">&larr; All RFDs</a>
+
+    <header class="rfd-header">
+      <div class="rfd-top">
+        <span class="rfd-number">RFD {frontmatter.number}</span>
+        <span class={stateClass}>{frontmatter.state}</span>
+      </div>
+      <h1>{frontmatter.title}</h1>
+
+      <div class="meta">
+        <span class="meta-item">{frontmatter.author}</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">{frontmatter.created}</span>
+        {frontmatter.updated && (
+          <>
+            <span class="meta-sep">·</span>
+            <span class="meta-item">Updated {frontmatter.updated}</span>
+          </>
+        )}
+      </div>
+
+      <div class="tags">
+        {frontmatter.tags.map((tag: string) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <div class="rfd-content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .rfd {
+    max-width: 680px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .back-link:hover {
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .rfd-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rfd-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .rfd-number {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .meta-sep {
+    color: var(--border);
+    margin: 0 0.25rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .rfd-content {
+    line-height: 1.7;
+  }
+
+  .rfd-content :global(h2) {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .rfd-content :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .rfd-content :global(p) {
+    color: var(--text-secondary);
+  }
+
+  .rfd-content :global(ul),
+  .rfd-content :global(ol) {
+    margin-bottom: 1rem;
+  }
+
+  .rfd-content :global(li) {
+    margin-bottom: 0.375rem;
+    color: var(--text-secondary);
+  }
+
+  .rfd-content :global(a) {
+    color: var(--blue);
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 1.35rem;
+    }
+
+    .meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.125rem;
+    }
+
+    .meta-sep {
+      display: none;
+    }
+  }
+</style>

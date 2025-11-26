@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from 'astro:content';
+import RFDLayout from '../../layouts/RFDLayout.astro';
+
+export async function getStaticPaths() {
+  const rfds = await getCollection('rfds');
+  return rfds.map((rfd) => ({
+    params: { number: rfd.data.number },
+    props: { rfd },
+  }));
+}
+
+const { rfd } = Astro.props;
+const { Content } = await render(rfd);
+---
+
+<RFDLayout frontmatter={rfd.data}>
+  <Content />
+</RFDLayout>

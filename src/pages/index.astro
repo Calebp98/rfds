@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const rfds = await getCollection('rfds');
+const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data.number));
+---
+
+<BaseLayout title="Index">
+  <div class="index">
+    <div class="page-header">
+      <h1>~</h1>
+      <p class="subtitle">Research ideas and open problems in AI security.</p>
+    </div>
+
+    <table>
+      <tbody>
+        {sortedRfds.map((rfd) => (
+          <tr>
+            <td class="col-num">{rfd.data.number}</td>
+            <td class="col-title">
+              <a href={`/rfd/${rfd.data.number}`}>{rfd.data.title}</a>
+            </td>
+            <td class="col-state">
+              <span class={`state state-${rfd.data.state}`}>{rfd.data.state}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 1rem 0;
+    vertical-align: baseline;
+  }
+
+  .col-num {
+    width: 60px;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .col-title {
+    padding-right: 1.5rem;
+  }
+
+  .col-title a {
+    color: var(--text-primary);
+  }
+
+  .col-title a:hover {
+    color: var(--blue);
+  }
+
+  .col-state {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .col-num {
+      width: 45px;
+    }
+
+    td {
+      padding: 0.75rem 0;
+    }
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | AI Security RFDs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <a href="/" class="logo">AI Security Forum</a>
+        <nav class="nav">
+          <a href="/">RFDs</a>
+          <a href="https://aisecurity.forum" target="_blank" rel="noopener">About</a>
+          <a href="https://aisecurity.forum/blog" target="_blank" rel="noopener">Blog</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <span class="muted"><a href="https://aisecurity.forum/substack">Subscribe to our substack</a> to hear about future events.</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
+
+<style>
+  .header {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    color: var(--text-primary);
+  }
+
+  .logo:hover {
+    text-decoration: none;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav a {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .nav a:hover {
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  main.container {
+    padding-bottom: 4rem;
+  }
+
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    text-align: center;
+    background: var(--peach);
+    border-top: 1px solid var(--peach-border);
+  }
+
+  .muted {
+    color: var(--text-primary);
+    font-size: 14px;
+  }
+
+  .muted a {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  .muted a:hover {
+    color: var(--blue);
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .nav {
+      gap: 1rem;
+    }
+  }
+</style>
