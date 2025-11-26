@@ -15,11 +15,12 @@ interface Props {
 
 const { frontmatter } = Astro.props;
 const stateClass = `state state-${frontmatter.state}`;
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title={`RFD ${frontmatter.number}: ${frontmatter.title}`}>
   <article class="rfd">
-    <a href="/" class="back-link">&larr; All RFDs</a>
+    <a href={base} class="back-link">&larr; All RFDs</a>
 
     <header class="rfd-header">
       <div class="rfd-top">
