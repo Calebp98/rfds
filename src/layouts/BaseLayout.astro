@@ -18,10 +18,19 @@ const base = import.meta.env.BASE_URL;
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <style set:html={`
+      @font-face {
+        font-family: 'Departure Mono';
+        src: url('${base}fonts/DepartureMono-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+    `}></style>
     <header class="header">
       <div class="pink-bar"></div>
       <div class="container">
-        <a href="https://aisecurity.forum" class="logo">AI SECURITY FORUM</a>
+        <a href="https://aisecurity.forum" class="logo">AI INFRA SECURITY FORUM</a>
       </div>
     </header>
     <div class="decorative-line">
@@ -70,7 +79,7 @@ const base = import.meta.env.BASE_URL;
 
   .logo {
     font-family: 'Departure Mono', monospace;
-    font-size: 22px;
+    font-size: 66px;
     color: var(--blue);
     letter-spacing: 0.05em;
   }
@@ -162,7 +171,7 @@ const base = import.meta.env.BASE_URL;
     }
 
     .logo {
-      font-size: 16px;
+      font-size: 33px;
     }
 
     .decorative-line {
