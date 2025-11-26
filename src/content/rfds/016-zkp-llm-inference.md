@@ -3,7 +3,7 @@ title: "Zero-Knowledge Proofs for LLM Inference"
 number: "016"
 author: "James Petrie"
 state: "idea"
-tags: ["verification", "cryptography", "zkp", "inference"]
+tags: ["verification", "cryptography", "inference"]
 created: "2024-11-26"
 ---
 

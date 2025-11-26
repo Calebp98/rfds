@@ -3,7 +3,7 @@ title: "MoE Expert Fingerprinting"
 number: "002"
 author: "Gabriel Kulp"
 state: "discussing"
-tags: ["side-channel", "moe", "token-recovery", "inference-security"]
+tags: ["side-channel", "token-recovery", "inference"]
 created: "2024-11-26"
 ---
 

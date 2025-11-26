@@ -3,7 +3,7 @@ title: "Nonconfidential Verification (Red Team/Blue Team)"
 number: "011"
 author: "James Petrie"
 state: "idea"
-tags: ["verification", "protocol", "adversarial", "logging"]
+tags: ["verification", "logging"]
 created: "2024-11-26"
 ---
 

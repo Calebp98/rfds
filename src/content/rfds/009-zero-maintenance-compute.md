@@ -3,7 +3,7 @@ title: "Zero-Maintenance Compute for Tamper Evidence"
 number: "009"
 author: "James Petrie"
 state: "discussing"
-tags: ["verification", "hardware", "reliability", "tamper-evidence"]
+tags: ["verification", "hardware"]
 created: "2024-11-26"
 ---
 

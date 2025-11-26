@@ -3,7 +3,7 @@ title: "Side-Channel Leakage from LLM Inference"
 number: "001"
 author: "Gabriel Kulp"
 state: "discussing"
-tags: ["side-channel", "hardware", "inference-security", "weight-theft"]
+tags: ["side-channel", "hardware", "inference", "weight-security"]
 created: "2024-11-26"
 ---
 

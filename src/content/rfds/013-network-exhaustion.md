@@ -3,7 +3,7 @@ title: "Network Exhaustion Protocol"
 number: "013"
 author: "James Petrie"
 state: "discussing"
-tags: ["verification", "protocol", "network", "inference"]
+tags: ["verification", "network", "inference"]
 created: "2024-11-26"
 ---
 
