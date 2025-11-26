@@ -1,15 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-const rfds = await getCollection('rfds');
-const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data.number));
+const rfds = await getCollection("rfds");
+const sortedRfds = rfds.sort(
+  (a, b) => parseInt(a.data.number) - parseInt(b.data.number)
+);
 ---
 
 <BaseLayout title="Index">
   <div class="index">
     <h1 class="site-title">RFD INDEX</h1>
-    <p class="subtitle">Research ideas and open problems in AI security.</p>
+    <p class="subtitle">
+      Research ideas and open problems in AI infra security.
+    </p>
 
     <div class="table-wrapper">
       <table>
@@ -21,17 +25,25 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
           </tr>
         </thead>
         <tbody>
-          {sortedRfds.map((rfd) => (
-            <tr>
-              <td class="col-num">{rfd.data.number}</td>
-              <td class="col-title">
-                <a href={`${import.meta.env.BASE_URL}rfd/${rfd.data.number}/`}>{rfd.data.title}</a>
-              </td>
-              <td class="col-state">
-                <span class={`state state-${rfd.data.state}`}>{rfd.data.state}</span>
-              </td>
-            </tr>
-          ))}
+          {
+            sortedRfds.map((rfd) => (
+              <tr>
+                <td class="col-num">{rfd.data.number}</td>
+                <td class="col-title">
+                  <a
+                    href={`${import.meta.env.BASE_URL}rfd/${rfd.data.number}/`}
+                  >
+                    {rfd.data.title}
+                  </a>
+                </td>
+                <td class="col-state">
+                  <span class={`state state-${rfd.data.state}`}>
+                    {rfd.data.state}
+                  </span>
+                </td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -40,7 +52,7 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
 
 <style>
   .site-title {
-    font-family: 'Departure Mono', monospace;
+    font-family: "Departure Mono", monospace;
     font-size: 33px;
     color: var(--blue);
     margin: 0 0 0.75rem 0;
@@ -50,7 +62,7 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
   .subtitle {
     color: var(--text-muted);
     margin: 0 0 2.5rem 0;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 14px;
   }
 
@@ -60,23 +72,23 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
   }
 
   .table-wrapper::before {
-    content: '+';
+    content: "+";
     position: absolute;
     top: -10px;
     left: -10px;
     color: var(--blue);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 14px;
     font-weight: bold;
   }
 
   .table-wrapper::after {
-    content: '+';
+    content: "+";
     position: absolute;
     bottom: -10px;
     right: -10px;
     color: var(--blue);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 14px;
     font-weight: bold;
   }
@@ -94,7 +106,7 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
   th {
     padding: 0.75rem 1rem;
     text-align: left;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 11px;
     font-weight: 600;
     color: var(--blue);
@@ -120,7 +132,7 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
 
   .col-num {
     width: 60px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
     color: var(--blue);
     font-size: 13px;
     font-weight: 500;
@@ -132,7 +144,7 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
 
   .col-title a {
     color: var(--text-primary);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 14px;
   }
 
@@ -158,7 +170,8 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
       width: 45px;
     }
 
-    td, th {
+    td,
+    th {
       padding: 0.75rem 0.75rem;
     }
 
