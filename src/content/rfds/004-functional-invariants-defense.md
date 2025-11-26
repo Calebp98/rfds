@@ -3,7 +3,7 @@ title: "Functional Invariants for Side-Channel Defense"
 number: "004"
 author: "Gabriel Kulp"
 state: "idea"
-tags: ["side-channel", "weight-security", "noise"]
+tags: ["side-channel", "weight-security"]
 created: "2024-11-26"
 ---
 
