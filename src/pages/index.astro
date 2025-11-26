@@ -8,32 +8,77 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
 
 <BaseLayout title="Index">
   <div class="index">
+    <h1 class="site-title">RFD INDEX</h1>
     <p class="subtitle">Research ideas and open problems in AI security.</p>
 
-    <table>
-      <tbody>
-        {sortedRfds.map((rfd) => (
+    <div class="table-wrapper">
+      <table>
+        <thead>
           <tr>
-            <td class="col-num">{rfd.data.number}</td>
-            <td class="col-title">
-              <a href={`${import.meta.env.BASE_URL}rfd/${rfd.data.number}`}>{rfd.data.title}</a>
-            </td>
-            <td class="col-state">
-              <span class={`state state-${rfd.data.state}`}>{rfd.data.state}</span>
-            </td>
+            <th class="col-num">#</th>
+            <th class="col-title">TITLE</th>
+            <th class="col-state">STATE</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {sortedRfds.map((rfd) => (
+            <tr>
+              <td class="col-num">{rfd.data.number}</td>
+              <td class="col-title">
+                <a href={`${import.meta.env.BASE_URL}rfd/${rfd.data.number}`}>{rfd.data.title}</a>
+              </td>
+              <td class="col-state">
+                <span class={`state state-${rfd.data.state}`}>{rfd.data.state}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
+  .site-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.25rem;
+    color: var(--blue);
+    margin: 0 0 0.75rem 0;
+    letter-spacing: 0.1em;
+  }
+
   .subtitle {
     color: var(--text-muted);
-    margin: 0 0 2rem 0;
-    font-family: 'Courier New', Courier, monospace;
+    margin: 0 0 2.5rem 0;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 14px;
+  }
+
+  .table-wrapper {
+    border: 2px solid var(--blue);
+    position: relative;
+  }
+
+  .table-wrapper::before {
+    content: '+';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .table-wrapper::after {
+    content: '+';
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: bold;
   }
 
   table {
@@ -41,20 +86,44 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
     border-collapse: collapse;
   }
 
+  thead {
+    background: rgba(74, 125, 201, 0.08);
+    border-bottom: 2px solid var(--blue);
+  }
+
+  th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.1em;
+  }
+
   tr {
     border-bottom: 1px solid var(--border);
   }
 
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background: rgba(74, 125, 201, 0.04);
+  }
+
   td {
-    padding: 1rem 0;
+    padding: 0.875rem 1rem;
     vertical-align: baseline;
   }
 
   .col-num {
     width: 60px;
-    font-family: 'Courier New', Courier, monospace;
-    color: var(--text-muted);
-    font-size: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 500;
   }
 
   .col-title {
@@ -63,7 +132,8 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
 
   .col-title a {
     color: var(--text-primary);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
   }
 
   .col-title a:hover {
@@ -75,13 +145,25 @@ const sortedRfds = rfds.sort((a, b) => parseInt(a.data.number) - parseInt(b.data
     white-space: nowrap;
   }
 
+  th.col-state {
+    text-align: right;
+  }
+
   @media (max-width: 640px) {
+    .site-title {
+      font-size: 1rem;
+    }
+
     .col-num {
       width: 45px;
     }
 
-    td {
-      padding: 0.75rem 0;
+    td, th {
+      padding: 0.75rem 0.75rem;
+    }
+
+    .col-title a {
+      font-size: 13px;
     }
   }
 </style>
