@@ -9,6 +9,9 @@ const sortedRfds = rfds.sort(
 
 // Get all unique tags
 const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
+
+// Get all unique authors
+const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort();
 ---
 
 <BaseLayout title="Index">
@@ -19,12 +22,23 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
     </p>
 
     <div class="filters">
-      <span class="filter-label">FILTER BY TAG:</span>
-      <div class="tag-filters">
-        <button class="tag-filter active" data-tag="all">all</button>
-        {allTags.map((tag) => (
-          <button class="tag-filter" data-tag={tag}>{tag}</button>
-        ))}
+      <div class="filter-group">
+        <span class="filter-label">FILTER BY TAG:</span>
+        <div class="tag-filters">
+          <button class="tag-filter active" data-tag="all">all</button>
+          {allTags.map((tag) => (
+            <button class="tag-filter" data-tag={tag}>{tag}</button>
+          ))}
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">FILTER BY AUTHOR:</span>
+        <div class="author-filters">
+          <button class="author-filter active" data-author="all">all</button>
+          {allAuthors.map((author) => (
+            <button class="author-filter" data-author={author}>{author}</button>
+          ))}
+        </div>
       </div>
     </div>
 
@@ -34,13 +48,14 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
           <tr>
             <th class="col-num">#</th>
             <th class="col-title">TITLE</th>
+            <th class="col-author">AUTHOR</th>
             <th class="col-state">STATE</th>
           </tr>
         </thead>
         <tbody>
           {
             sortedRfds.map((rfd) => (
-              <tr data-tags={rfd.data.tags.join(",")}>
+              <tr data-tags={rfd.data.tags.join(",")} data-author={rfd.data.author}>
                 <td class="col-num">{rfd.data.number}</td>
                 <td class="col-title">
                   <a
@@ -49,6 +64,7 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
                     {rfd.data.title}
                   </a>
                 </td>
+                <td class="col-author">{rfd.data.author}</td>
                 <td class="col-state">
                   <span class={`state state-${rfd.data.state}`}>
                     {rfd.data.state}
@@ -69,34 +85,51 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
 
 <script>
   const tagButtons = document.querySelectorAll('.tag-filter');
+  const authorButtons = document.querySelectorAll('.author-filter');
   const rows = document.querySelectorAll('tbody tr');
   const noResults = document.querySelector('.no-results') as HTMLElement;
 
+  let activeTag = 'all';
+  let activeAuthor = 'all';
+
+  function filterRows() {
+    let visibleCount = 0;
+    rows.forEach(row => {
+      const rowTags = row.getAttribute('data-tags')?.split(',') || [];
+      const rowAuthor = row.getAttribute('data-author') || '';
+      const tr = row as HTMLElement;
+
+      const tagMatch = activeTag === 'all' || rowTags.includes(activeTag);
+      const authorMatch = activeAuthor === 'all' || rowAuthor === activeAuthor;
+
+      if (tagMatch && authorMatch) {
+        tr.style.display = '';
+        visibleCount++;
+      } else {
+        tr.style.display = 'none';
+      }
+    });
+
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
+
   tagButtons.forEach(button => {
     button.addEventListener('click', () => {
-      const tag = button.getAttribute('data-tag');
-
-      // Update active state
+      activeTag = button.getAttribute('data-tag') || 'all';
       tagButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
+      filterRows();
+    });
+  });
 
-      // Filter rows
-      let visibleCount = 0;
-      rows.forEach(row => {
-        const rowTags = row.getAttribute('data-tags')?.split(',') || [];
-        const tr = row as HTMLElement;
-        if (tag === 'all' || rowTags.includes(tag!)) {
-          tr.style.display = '';
-          visibleCount++;
-        } else {
-          tr.style.display = 'none';
-        }
-      });
-
-      // Show/hide no results message
-      if (noResults) {
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-      }
+  authorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      activeAuthor = button.getAttribute('data-author') || 'all';
+      authorButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      filterRows();
     });
   });
 </script>
@@ -119,6 +152,14 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
 
   .filters {
     margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
   }
 
   .filter-label {
@@ -131,13 +172,15 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
     text-transform: uppercase;
   }
 
-  .tag-filters {
+  .tag-filters,
+  .author-filters {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .tag-filter {
+  .tag-filter,
+  .author-filter {
     font-family: "IBM Plex Mono", monospace;
     font-size: 11px;
     padding: 0.25rem 0.6rem;
@@ -146,16 +189,21 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
     color: var(--text-muted);
     cursor: pointer;
     transition: all 0.15s;
+  }
+
+  .tag-filter {
     text-transform: lowercase;
   }
 
-  .tag-filter:hover {
+  .tag-filter:hover,
+  .author-filter:hover {
     border-color: var(--purple);
     color: var(--purple);
     background: rgba(123, 104, 201, 0.05);
   }
 
-  .tag-filter.active {
+  .tag-filter.active,
+  .author-filter.active {
     background: rgba(123, 104, 201, 0.15);
     border-color: var(--purple);
     color: var(--purple);
@@ -249,6 +297,13 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
     color: var(--blue);
   }
 
+  .col-author {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
   .col-state {
     text-align: right;
     white-space: nowrap;
@@ -266,6 +321,16 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
     font-size: 13px;
     color: var(--text-muted);
     border: 1px dashed var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .col-author {
+      display: none;
+    }
+
+    th.col-author {
+      display: none;
+    }
   }
 
   @media (max-width: 640px) {
@@ -286,11 +351,13 @@ const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
       font-size: 13px;
     }
 
-    .tag-filters {
+    .tag-filters,
+    .author-filters {
       gap: 0.375rem;
     }
 
-    .tag-filter {
+    .tag-filter,
+    .author-filter {
       font-size: 10px;
       padding: 0.25rem 0.5rem;
     }
