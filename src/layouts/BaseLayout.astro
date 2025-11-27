@@ -32,6 +32,16 @@ const base = import.meta.env.BASE_URL;
     </main>
     <footer class="footer">
       <div class="container">
+        <div class="contributors">
+          <span class="contributors-label">Ideas contributed by people from</span>
+          <div class="contributor-logos">
+            <img src={`${base}logos/ARIA.jpg`} alt="ARIA" class="contributor-logo" />
+            <img src={`${base}logos/rand.png`} alt="RAND Corporation" class="contributor-logo" />
+            <img src={`${base}logos/FLI.svg`} alt="Future of Life Institute" class="contributor-logo" />
+            <img src={`${base}logos/IFP.png`} alt="Institute for Progress" class="contributor-logo" />
+            <img src={`${base}logos/AMODO.webp`} alt="Amodo" class="contributor-logo" />
+          </div>
+        </div>
         <a href="https://aisecurity.forum" class="logo">AI SECURITY FORUM</a>
         <span class="footer-text"><a href="https://aisecurity.forum/substack">Subscribe to our substack</a> to hear about future events.</span>
       </div>
@@ -113,6 +123,44 @@ const base = import.meta.env.BASE_URL;
     color: var(--blue-dark);
   }
 
+  .contributors {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contributors-label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+  }
+
+  .contributor-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .contributor-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.2s;
+  }
+
+  .contributor-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
   @media (max-width: 640px) {
     .container {
       padding: 0 1rem;
@@ -120,6 +168,14 @@ const base = import.meta.env.BASE_URL;
 
     .logo {
       font-size: 33px;
+    }
+
+    .contributor-logos {
+      gap: 1.5rem;
+    }
+
+    .contributor-logo {
+      height: 30px;
     }
   }
 </style>
