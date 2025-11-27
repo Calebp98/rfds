@@ -11,15 +11,15 @@ const sortedRfds = rfds.sort(
 const allTags = [...new Set(sortedRfds.flatMap((rfd) => rfd.data.tags))].sort();
 
 // Get all unique authors
-const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort();
+const allAuthors = [
+  ...new Set(sortedRfds.map((rfd) => rfd.data.author)),
+].sort();
 ---
 
 <BaseLayout title="Index">
   <div class="index">
-    <h1 class="site-title">RFD INDEX</h1>
-    <p class="subtitle">
-      Research ideas and open problems in AI infra security.
-    </p>
+    <h1 class="site-title">REQUESTS FOR DISCUSSION</h1>
+    <p class="subtitle">On AI infrastructure security and AI verification.</p>
 
     <div class="search-container">
       <input
@@ -35,18 +35,26 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
         <span class="filter-label">FILTER BY TAG:</span>
         <div class="tag-filters">
           <button class="tag-filter active" data-tag="all">all</button>
-          {allTags.map((tag) => (
-            <button class="tag-filter" data-tag={tag}>{tag}</button>
-          ))}
+          {
+            allTags.map((tag) => (
+              <button class="tag-filter" data-tag={tag}>
+                {tag}
+              </button>
+            ))
+          }
         </div>
       </div>
       <div class="filter-group">
         <span class="filter-label">FILTER BY AUTHOR:</span>
         <div class="author-filters">
           <button class="author-filter active" data-author="all">all</button>
-          {allAuthors.map((author) => (
-            <button class="author-filter" data-author={author}>{author}</button>
-          ))}
+          {
+            allAuthors.map((author) => (
+              <button class="author-filter" data-author={author}>
+                {author}
+              </button>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -64,7 +72,11 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
         <tbody>
           {
             sortedRfds.map((rfd) => (
-              <tr data-tags={rfd.data.tags.join(",")} data-author={rfd.data.author} data-title={rfd.data.title}>
+              <tr
+                data-tags={rfd.data.tags.join(",")}
+                data-author={rfd.data.author}
+                data-title={rfd.data.title}
+              >
                 <td class="col-num">{rfd.data.number}</td>
                 <td class="col-title">
                   <a
@@ -93,67 +105,70 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
 </BaseLayout>
 
 <script>
-  const tagButtons = document.querySelectorAll('.tag-filter');
-  const authorButtons = document.querySelectorAll('.author-filter');
-  const searchInput = document.getElementById('search-input') as HTMLInputElement;
-  const rows = document.querySelectorAll('tbody tr');
-  const noResults = document.querySelector('.no-results') as HTMLElement;
+  const tagButtons = document.querySelectorAll(".tag-filter");
+  const authorButtons = document.querySelectorAll(".author-filter");
+  const searchInput = document.getElementById(
+    "search-input"
+  ) as HTMLInputElement;
+  const rows = document.querySelectorAll("tbody tr");
+  const noResults = document.querySelector(".no-results") as HTMLElement;
 
-  let activeTag = 'all';
-  let activeAuthor = 'all';
-  let searchQuery = '';
+  let activeTag = "all";
+  let activeAuthor = "all";
+  let searchQuery = "";
 
   function filterRows() {
     let visibleCount = 0;
     const query = searchQuery.toLowerCase();
 
-    rows.forEach(row => {
-      const rowTags = row.getAttribute('data-tags')?.split(',') || [];
-      const rowAuthor = row.getAttribute('data-author') || '';
-      const rowTitle = row.getAttribute('data-title') || '';
+    rows.forEach((row) => {
+      const rowTags = row.getAttribute("data-tags")?.split(",") || [];
+      const rowAuthor = row.getAttribute("data-author") || "";
+      const rowTitle = row.getAttribute("data-title") || "";
       const tr = row as HTMLElement;
 
-      const tagMatch = activeTag === 'all' || rowTags.includes(activeTag);
-      const authorMatch = activeAuthor === 'all' || rowAuthor === activeAuthor;
+      const tagMatch = activeTag === "all" || rowTags.includes(activeTag);
+      const authorMatch = activeAuthor === "all" || rowAuthor === activeAuthor;
 
       // Search matches title, author, or any tag
-      const searchMatch = query === '' ||
+      const searchMatch =
+        query === "" ||
         rowTitle.toLowerCase().includes(query) ||
         rowAuthor.toLowerCase().includes(query) ||
-        rowTags.some(tag => tag.toLowerCase().includes(query));
+        rowTags.some((tag) => tag.toLowerCase().includes(query));
 
       if (tagMatch && authorMatch && searchMatch) {
-        tr.style.display = '';
+        tr.style.display = "";
         visibleCount++;
       } else {
-        tr.style.display = 'none';
+        tr.style.display = "none";
       }
     });
 
     if (noResults) {
-      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      noResults.style.display = visibleCount === 0 ? "block" : "none";
     }
   }
 
-  tagButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      activeTag = button.getAttribute('data-tag') || 'all';
-      tagButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+  tagButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeTag = button.getAttribute("data-tag") || "all";
+      tagButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
       filterRows();
     });
   });
 
-  authorButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      activeAuthor = button.getAttribute('data-author') || 'all';
-      authorButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+  authorButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeAuthor = button.getAttribute("data-author") || "all";
+      authorButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
       filterRows();
     });
   });
 
-  searchInput.addEventListener('input', () => {
+  searchInput.addEventListener("input", () => {
     searchQuery = searchInput.value;
     filterRows();
   });
@@ -166,6 +181,7 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
     color: var(--blue);
     margin: 0 0 0.75rem 0;
     letter-spacing: 0.1em;
+    text-align: center;
   }
 
   .subtitle {
@@ -173,6 +189,7 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
     margin: 0 0 2rem 0;
     font-family: "IBM Plex Mono", monospace;
     font-size: 14px;
+    text-align: center;
   }
 
   .search-container {
