@@ -21,6 +21,15 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
       Research ideas and open problems in AI infra security.
     </p>
 
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-input"
+        class="search-input"
+        placeholder="Search by title, author, or tag..."
+      />
+    </div>
+
     <div class="filters">
       <div class="filter-group">
         <span class="filter-label">FILTER BY TAG:</span>
@@ -55,7 +64,7 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
         <tbody>
           {
             sortedRfds.map((rfd) => (
-              <tr data-tags={rfd.data.tags.join(",")} data-author={rfd.data.author}>
+              <tr data-tags={rfd.data.tags.join(",")} data-author={rfd.data.author} data-title={rfd.data.title}>
                 <td class="col-num">{rfd.data.number}</td>
                 <td class="col-title">
                   <a
@@ -78,7 +87,7 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
     </div>
 
     <div class="no-results" style="display: none;">
-      No RFDs match the selected tag.
+      No RFDs match the current filters.
     </div>
   </div>
 </BaseLayout>
@@ -86,23 +95,34 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
 <script>
   const tagButtons = document.querySelectorAll('.tag-filter');
   const authorButtons = document.querySelectorAll('.author-filter');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
   const rows = document.querySelectorAll('tbody tr');
   const noResults = document.querySelector('.no-results') as HTMLElement;
 
   let activeTag = 'all';
   let activeAuthor = 'all';
+  let searchQuery = '';
 
   function filterRows() {
     let visibleCount = 0;
+    const query = searchQuery.toLowerCase();
+
     rows.forEach(row => {
       const rowTags = row.getAttribute('data-tags')?.split(',') || [];
       const rowAuthor = row.getAttribute('data-author') || '';
+      const rowTitle = row.getAttribute('data-title') || '';
       const tr = row as HTMLElement;
 
       const tagMatch = activeTag === 'all' || rowTags.includes(activeTag);
       const authorMatch = activeAuthor === 'all' || rowAuthor === activeAuthor;
 
-      if (tagMatch && authorMatch) {
+      // Search matches title, author, or any tag
+      const searchMatch = query === '' ||
+        rowTitle.toLowerCase().includes(query) ||
+        rowAuthor.toLowerCase().includes(query) ||
+        rowTags.some(tag => tag.toLowerCase().includes(query));
+
+      if (tagMatch && authorMatch && searchMatch) {
         tr.style.display = '';
         visibleCount++;
       } else {
@@ -132,6 +152,11 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
       filterRows();
     });
   });
+
+  searchInput.addEventListener('input', () => {
+    searchQuery = searchInput.value;
+    filterRows();
+  });
 </script>
 
 <style>
@@ -148,6 +173,30 @@ const allAuthors = [...new Set(sortedRfds.map((rfd) => rfd.data.author))].sort()
     margin: 0 0 2rem 0;
     font-family: "IBM Plex Mono", monospace;
     font-size: 14px;
+  }
+
+  .search-container {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .search-input:focus {
+    border-color: var(--blue);
   }
 
   .filters {
