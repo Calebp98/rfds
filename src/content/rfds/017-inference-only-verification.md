@@ -1,7 +1,7 @@
 ---
 title: "Inference-Only Verification Package"
 number: "017"
-author: "TBD"
+author: "Romeo Dean"
 state: "discussing"
 tags: ["verification", "hardware", "inference", "physical-security"]
 created: "2024-11-27"

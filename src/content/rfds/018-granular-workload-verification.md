@@ -1,7 +1,7 @@
 ---
 title: "Granular AI Workload Verification"
 number: "018"
-author: "TBD"
+author: "Romeo Dean"
 state: "discussing"
 tags: ["verification", "hardware", "logging", "network"]
 created: "2024-11-27"
