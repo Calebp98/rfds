@@ -1,6 +1,6 @@
 ---
 title: "Device-Model Mating for AI-Enabled Weapons"
-number: "048"
+number: "041"
 author: "Oxford Martin AI Governance Initiative"
 state: "idea"
 tags: ["verification", "hardware", "cryptography", "physical-security"]
@@ -10,6 +10,7 @@ created: "2024-11-27"
 ## The Idea
 
 Hardware mechanisms that permanently bind a specific AI model to a specific device, such that:
+
 1. The model cannot be feasibly copied to run on other hardware
 2. The hardware cannot be repurposed to run a different model
 
@@ -59,25 +60,27 @@ This enables arms control agreements covering AI-enabled weapons by providing cr
 
 The PUF must:
 
-| Property | Requirement |
-|----------|-------------|
-| **Unique** | Different devices produce different keys |
-| **Stable** | Same device produces same key over time |
-| **Unclonable** | Cannot manufacture a device with the same PUF response |
-| **Tamper-evident** | Physical intrusion changes PUF response |
-| **Stress-tolerant** | Operational conditions don't alter the key |
+| Property            | Requirement                                            |
+| ------------------- | ------------------------------------------------------ |
+| **Unique**          | Different devices produce different keys               |
+| **Stable**          | Same device produces same key over time                |
+| **Unclonable**      | Cannot manufacture a device with the same PUF response |
+| **Tamper-evident**  | Physical intrusion changes PUF response                |
+| **Stress-tolerant** | Operational conditions don't alter the key             |
 
 Challenge: Military systems experience vibration, temperature extremes, shock. PUF must remain stable under these conditions while still detecting tampering.
 
 ## Secure Enclosure Design
 
 The PUF-protected boundary must:
+
 - Encompass all components that access decrypted model
 - Prevent probing of internal signals
 - Trigger key destruction on breach
 - Survive operational environment
 
 Options:
+
 - Chip-level enclosure (most secure, hardest to implement)
 - Board-level potting with active mesh
 - Module-level with environmental monitoring
@@ -112,6 +115,7 @@ Options:
 ## Wreckage Inspection
 
 Post-incident verification:
+
 - Examine device enclosure for tampering
 - If intact, PUF response should match recorded value
 - Attestation of loaded model fingerprint (if hardware survived)
@@ -126,15 +130,6 @@ Post-incident verification:
 - How to handle model updates that are genuinely needed for safety or security?
 - What's the failure mode if PUF degrades over time?
 - Can an adversary with resources of a nation-state clone a PUF?
-
-## Relationship to Other RFDs
-
-| RFD | Relationship |
-|-----|--------------|
-| RFD 020 (Tamper-Evident Enclosure) | Enclosure technology for protecting PUF |
-| RFD 037 (Containerized Data Centers) | Container-scale application of similar principles |
-| RFD 041 (Model Fingerprint Attestation) | Fingerprint proves which model is mated |
-| RFD 049 (On-Device Logging) | Mated device could also log operations |
 
 ## References
 

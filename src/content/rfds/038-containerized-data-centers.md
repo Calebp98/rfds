@@ -1,6 +1,6 @@
 ---
 title: "Containerized Data Centers for Mobile/Military AI"
-number: "037"
+number: "038"
 author: "Oxford Martin AI Governance Initiative"
 state: "idea"
 tags: ["verification", "hardware", "physical-security"]
@@ -50,17 +50,18 @@ Military AI assets face an acute transparency-security tradeoff—revealing the 
 
 ## Verification Lifecycle
 
-| Phase | Location | Actions |
-|-------|----------|---------|
-| **Assembly** | Verification Facility | Hardware verified by both parties, PUF baseline recorded |
-| **Sealing** | Verification Facility | Container sealed, tamper-evident shell activated |
-| **Deployment** | Secret | Container moved to operational location |
-| **Operation** | Secret | Continuous encrypted monitoring, workload verification |
-| **Maintenance** | Verification Facility | If needed, return to facility for verified repairs |
+| Phase           | Location              | Actions                                                  |
+| --------------- | --------------------- | -------------------------------------------------------- |
+| **Assembly**    | Verification Facility | Hardware verified by both parties, PUF baseline recorded |
+| **Sealing**     | Verification Facility | Container sealed, tamper-evident shell activated         |
+| **Deployment**  | Secret                | Container moved to operational location                  |
+| **Operation**   | Secret                | Continuous encrypted monitoring, workload verification   |
+| **Maintenance** | Verification Facility | If needed, return to facility for verified repairs       |
 
 ## Tamper Detection
 
 The container shell uses PUF-based security:
+
 - Physical properties of the enclosure (capacitance, RF response) form a unique signature
 - Any physical intrusion changes these properties
 - Continuous or periodic measurement detects tampering
@@ -69,6 +70,7 @@ The container shell uses PUF-based security:
 ## Location Obfuscation
 
 Monitoring data must not leak location:
+
 - All timestamps normalized or jittered
 - Traffic patterns padded to prevent timing analysis
 - Multiple routing paths to prevent triangulation
@@ -77,6 +79,7 @@ Monitoring data must not leak location:
 ## Thermal/Power Considerations
 
 Shipping container constraints:
+
 - Standard 20ft or 40ft container form factors
 - Liquid cooling pass-through required for GPU density
 - Power delivery (potentially multi-MW for large clusters)
@@ -90,15 +93,6 @@ Shipping container constraints:
 - Can PUF enclosures withstand operational stresses (transport vibration, temperature extremes) without triggering false positives?
 - What's the minimum viable container size for useful AI capability?
 - How to handle power and cooling in field deployments?
-
-## Relationship to Other RFDs
-
-| RFD | Relationship |
-|-----|--------------|
-| RFD 006 (SCIF for AI Clusters) | Containerized DC is a mobile variant of SCIF concept |
-| RFD 017 (Inference-Only Package) | Could be deployed in container form factor |
-| RFD 020 (Tamper-Evident Enclosure) | PUF shell is an application of enclosure technology |
-| RFD 026 (Location Verification) | Inverse problem—this RFD hides location while 026 proves it |
 
 ## References
 

@@ -19,22 +19,24 @@ Chip identifiers are fundamental to hardware governance—without them, chips ar
 
 ## Technical Requirements
 
-| Component | Purpose |
-|-----------|---------|
+| Component         | Purpose                                      |
+| ----------------- | -------------------------------------------- |
 | Unique identifier | On-chip private key, PUF, or physical marker |
-| Registry database | Stores chip ID → owner → location mappings |
-| Update protocol | Secure ownership transfer, location updates |
-| Query interface | Authorized parties can verify chip status |
-| Audit trail | Immutable history of ownership changes |
+| Registry database | Stores chip ID → owner → location mappings   |
+| Update protocol   | Secure ownership transfer, location updates  |
+| Query interface   | Authorized parties can verify chip status    |
+| Audit trail       | Immutable history of ownership changes       |
 
 ## Implementation Approaches
 
 **Hardware-based (high security, requires manufacturer cooperation):**
+
 - Use existing on-chip security modules (NVIDIA GPUs have private keys)
 - PUF-derived identifiers tied to physical chip properties
 - Remote attestation to prove chip identity without revealing key
 
 **Physical inspection-based (lower security, deployable now):**
+
 - Unique physical markers (glitter patterns, laser engravings)
 - Photographic verification against registry database
 - Tamper-evident seals with unique identifiers
@@ -47,14 +49,6 @@ Chip identifiers are fundamental to hardware governance—without them, chips ar
 - What governance structure should manage the registry? (International body, consortium, distributed?)
 - How to handle chip destruction, recycling, or repurposing?
 - What happens when chips are sold or transferred between organizations?
-
-## Relationship to Other RFDs
-
-| RFD | Relationship |
-|-----|--------------|
-| RFD 008 (Attested Logging) | Uses chip identity for attestation |
-| RFD 019 (Guarantee Processor) | Could incorporate registry check into guarantee logic |
-| RFD 025 (k-of-n Updates) | Registry governance could use similar multi-party authorization |
 
 ## References
 

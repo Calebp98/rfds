@@ -1,6 +1,6 @@
 ---
 title: "On-Device Logging for AI Weapons Verification"
-number: "049"
+number: "042"
 author: "Oxford Martin AI Governance Initiative"
 state: "idea"
 tags: ["verification", "logging", "cryptography", "physical-security"]
@@ -21,13 +21,13 @@ Delayed verification via on-device logging threads this needle: operations remai
 
 ## What Gets Logged
 
-| Data Type | Purpose | Sensitivity |
-|-----------|---------|-------------|
-| Sensor inputs | Prove what the system "saw" | High (reveals capabilities) |
-| Model decisions | Prove reasoning chain | Medium |
-| Targeting data | Prove target selection criteria | Very high |
-| Human interactions | Prove human-in-the-loop compliance | High |
-| Engagement outcomes | Prove effects of actions | High |
+| Data Type           | Purpose                            | Sensitivity                 |
+| ------------------- | ---------------------------------- | --------------------------- |
+| Sensor inputs       | Prove what the system "saw"        | High (reveals capabilities) |
+| Model decisions     | Prove reasoning chain              | Medium                      |
+| Targeting data      | Prove target selection criteria    | Very high                   |
+| Human interactions  | Prove human-in-the-loop compliance | High                        |
+| Engagement outcomes | Prove effects of actions           | High                        |
 
 ## Architecture
 
@@ -84,20 +84,20 @@ Later, for verification:
 
 ## Commitment Transmission Options
 
-| Approach | Pros | Cons |
-|----------|------|------|
-| Continuous transmission | Commitments exist externally; can't be deleted | Reveals operational tempo, risks location leak |
-| Periodic bundles | Less revealing of operations | Delay in establishing commitments |
-| Post-operation dump | Minimal operational security risk | All commitments made after the fact (less trustworthy) |
-| No transmission | Maximum operational security | Relies entirely on tamper-resistant storage |
+| Approach                | Pros                                           | Cons                                                   |
+| ----------------------- | ---------------------------------------------- | ------------------------------------------------------ |
+| Continuous transmission | Commitments exist externally; can't be deleted | Reveals operational tempo, risks location leak         |
+| Periodic bundles        | Less revealing of operations                   | Delay in establishing commitments                      |
+| Post-operation dump     | Minimal operational security risk              | All commitments made after the fact (less trustworthy) |
+| No transmission         | Maximum operational security                   | Relies entirely on tamper-resistant storage            |
 
 ## Storage Requirements
 
-| Component | Data Rate | 1-Year Storage |
-|-----------|-----------|----------------|
-| Sensor frames (compressed) | ~1 MB/min active | ~500 GB |
-| Decision logs | ~1 KB/decision | ~1 GB |
-| Commitments only | ~100 bytes/event | ~100 MB |
+| Component                  | Data Rate        | 1-Year Storage |
+| -------------------------- | ---------------- | -------------- |
+| Sensor frames (compressed) | ~1 MB/min active | ~500 GB        |
+| Decision logs              | ~1 KB/decision   | ~1 GB          |
+| Commitments only           | ~100 bytes/event | ~100 MB        |
 
 Requires ruggedized, tamper-resistant nonvolatile storage capable of surviving combat conditions.
 
@@ -139,14 +139,6 @@ Requires ruggedized, tamper-resistant nonvolatile storage capable of surviving c
 - What happens if storage is destroyed in combat?
 - How to handle classified information in logs during verification?
 - Who performs the verification? (Neutral party? Adversary? International body?)
-
-## Relationship to Other RFDs
-
-| RFD | Relationship |
-|-----|--------------|
-| RFD 048 (Device-Model Mating) | Mated devices with logging provide both model and behavior guarantees |
-| RFD 020 (Tamper-Evident Enclosure) | Storage must be in tamper-resistant enclosure |
-| RFD 037 (Containerized Data Centers) | Similar delayed-verification concept for larger systems |
 
 ## References
 
