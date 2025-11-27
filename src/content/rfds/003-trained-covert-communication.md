@@ -2,7 +2,7 @@
 title: "Trained Covert Communication via Side-Channels"
 number: "003"
 author: "Gabriel Kulp"
-state: "discussing"
+state: "idea"
 tags: ["covert-comms", "control", "side-channel"]
 created: "2024-11-26"
 ---

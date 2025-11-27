@@ -2,7 +2,7 @@
 title: "Analog Sensors for Compute Verification"
 number: "012"
 author: "James Petrie"
-state: "discussing"
+state: "idea"
 tags: ["verification", "hardware", "side-channel", "sensors"]
 created: "2024-11-26"
 ---

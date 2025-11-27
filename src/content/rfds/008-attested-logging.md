@@ -2,7 +2,7 @@
 title: "Attested Logging with Existing Hardware"
 number: "008"
 author: "James Petrie"
-state: "discussing"
+state: "idea"
 tags: ["verification", "tee", "attestation", "gpu"]
 created: "2024-11-26"
 ---

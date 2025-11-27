@@ -2,7 +2,7 @@
 title: "Memory Exhaustion Protocol"
 number: "014"
 author: "James Petrie"
-state: "discussing"
+state: "idea"
 tags: ["verification", "memory"]
 created: "2024-11-26"
 ---

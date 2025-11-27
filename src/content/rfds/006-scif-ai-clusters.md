@@ -2,7 +2,7 @@
 title: "Secure Enclosure (SCIF) for AI Clusters"
 number: "006"
 author: "James Petrie"
-state: "discussing"
+state: "idea"
 tags: ["verification", "hardware", "physical-security"]
 created: "2024-11-26"
 ---

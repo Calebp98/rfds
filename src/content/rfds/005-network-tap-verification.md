@@ -2,7 +2,7 @@
 title: "Network Tap for Compute Verification"
 number: "005"
 author: "James Petrie"
-state: "discussing"
+state: "idea"
 tags: ["verification", "hardware", "network", "logging"]
 created: "2024-11-26"
 ---

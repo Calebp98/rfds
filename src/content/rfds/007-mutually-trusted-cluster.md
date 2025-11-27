@@ -2,7 +2,7 @@
 title: "Mutually Trusted Cluster for Log Verification"
 number: "007"
 author: "James Petrie"
-state: "discussing"
+state: "idea"
 tags: ["verification", "hardware", "confidentiality", "integrity"]
 created: "2024-11-26"
 ---
