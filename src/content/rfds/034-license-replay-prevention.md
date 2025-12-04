@@ -11,9 +11,10 @@ created: "2024-11-27"
 
 Prevent the same license from being applied to a chip multiple times. Without replay prevention, an attacker could save a valid license and reapply it indefinitely, defeating the compute rationing intent of offline licensing.
 
-Two primary approaches:
+Three primary approaches:
 1. **Hash log**: Store hashes of all previously applied licenses; reject any license whose hash is already in the log
 2. **Sequence numbers**: Each license contains a monotonic sequence number; chip stores the highest seen number and rejects any license with a lower or equal number
+3. **Random number generation**: When requesting a license, each chip randomly generates a unique challenge, then stores the challenge in nonvolatile memory and sends it to the license provider. A valid license must contain a cryptographic signature of this challenge.
 
 ## Why It Matters
 
@@ -112,6 +113,10 @@ The sequence counter or hash log must be stored in:
 
 The RAND paper recommends combining approaches: primary storage in protected flash, with critical counters also written to OTP fuses as a backup that survives even sophisticated physical attacks.
 
+## Attack: OTP or Flash write prevented by disrupting high voltage source
+
+Writing fuses or flash memory requires high voltage, which either needs to be externally provided, or generated from lower voltage using physcially large components. If an attacker disrupts the high voltage source, the fact that a license has been used will not be recorded. This could potentially be defended against by reading the nonvolatile memory after writing and before enabling chip usage. 
+
 ## Rollback Attack Mitigation
 
 An attacker might try to restore the chip to an earlier state where fewer licenses have been consumed:
@@ -154,3 +159,4 @@ This creates an audit trail even if local storage is eventually compromised.
 - RAND WR-A3056-1, Chapter 6: License subsection
 - TPM monotonic counter specifications
 - Anti-rollback mechanisms in secure boot
+- EMBEDDED OFF-SWITCHES FOR AI COMPUTE: https://arxiv.org/pdf/2509.07637 
