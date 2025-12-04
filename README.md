@@ -13,15 +13,16 @@ An RFD is a lightweight document that captures an idea, explores a problem, or p
 | State | Meaning |
 |-------|---------|
 | `idea` | Initial writeup, open for feedback |
-| `discussing` | Active discussion happening (PR open) |
-| `published` | Merged and stable |
+| `discussing` | Discussion is especially helpful |
 | `abandoned` | No longer being pursued |
+
+All RFDs remain open for discussion regardless of state.
 
 ## Contributing
 
 ### Commenting on an RFD
 
-Open a PR with suggested changes, or comment on the existing discussion thread.
+To discuss any RFD—whether it's a new idea or already published—open an issue or PR on GitHub.
 
 ### Proposing a new RFD
 
