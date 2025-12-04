@@ -1,43 +1,73 @@
-# Astro Starter Kit: Minimal
+# AI Security RFDs
 
-```sh
-npm create astro@latest -- --template minimal
+Research ideas and open problems in AI security, verification, and governance.
+
+This process is inspired by [Oxide's RFD process](https://oxide.computer/blog/rfd-1-requests-for-discussion).
+
+## What is an RFD?
+
+An RFD is a lightweight document that captures an idea, explores a problem, or proposes a direction. The goal is to get ideas written down where others can engage with them—rough is fine.
+
+## RFD States
+
+| State | Meaning |
+|-------|---------|
+| `idea` | Initial writeup, open for feedback |
+| `discussing` | Active discussion happening (PR open) |
+| `published` | Merged and stable |
+| `abandoned` | No longer being pursued |
+
+## Contributing
+
+### Commenting on an RFD
+
+Open a PR with suggested changes, or comment on the existing discussion thread.
+
+### Proposing a new RFD
+
+1. Fork/clone the repo and create a branch
+2. Copy `rfd/0000-template.md` to `rfd/NNNN-short-title.md` (next available number)
+3. Fill in the frontmatter and write your idea
+4. Open a PR — discussion happens there
+5. Once it's ready, merge to main
+
+### Format
+
+```markdown
+---
+title: "Your Title Here"
+number: "042"
+author: "Your Name"
+state: "idea"
+tags: ["relevant", "tags"]
+created: "YYYY-MM-DD"
+---
+
+## The Idea
+
+What's the core concept?
+
+## Why It Matters
+
+Why should people care?
+
+## Open Questions
+
+What's unresolved?
+
+## References
+
+Links to papers, prior art, related RFDs.
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Topic Areas
 
-## 🚀 Project Structure
+Current RFDs cover:
+- **Side-channels**: GPU power/EM leakage, MoE fingerprinting, covert communication
+- **Hardware verification**: Network taps, secure enclaves, tamper detection, trusted logging
+- **Cryptographic approaches**: ZK proofs, attestation, offline licensing
+- **Governance infrastructure**: Chip registries, location verification, workload discrimination
 
-Inside of your Astro project, you'll see the following folders and files:
+## License
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This work is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/). You're free to use, share, and adapt these ideas — just give credit.
