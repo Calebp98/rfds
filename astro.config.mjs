@@ -6,8 +6,8 @@ const isProd = process.env.NODE_ENV === 'production';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://Calebp98.github.io',
-  base: isProd ? '/rfds/' : '/',
+  site: 'https://projects.aisecurity.forum',
+  base: '/',
   trailingSlash: 'always',
   integrations: [mdx()],
   markdown: {
